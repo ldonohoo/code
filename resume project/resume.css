@@ -1,0 +1,82 @@
+:root {
+  --red-leaves-img: "https://photos.google.com/share/AF1QipMI_aYYhECPhmtQaXoU2X3GB3aJqGM8HL-su80cc_nlP6yH5TKiZoNtt_u2nb0rFQ/photo/AF1QipOeyuh7zSzyqGybMwASTYeJ-cqjq78t0GvWyAU2?key=OVpJTy1OaFpudE81LVZwTi13Tmd4REc0UE5wNjhR"
+ 
+}
+
+
+body {
+  margin:0;
+}
+
+.profile {
+  font-size: 66px;
+  line-height: 80px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: var(--red-leaves-img) 0 0 / cover no-repeat;
+  color: #de466c;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body h2 {
+    background-color: rgba(0, 200, 255, 0.264);
+    padding: 5vw,5vw,5vw,5vw;
+    border: 0.1vw;
+    border-color: black;
+}
+.collapsible {
+    background-color: rgb(0, 87, 128);
+    cursor: pointer;
+    width: 100%;
+    padding-left: 1vw;
+    border: none;
+    text-align: left;
+    outline:auto;
+  }
+  
+  .collapsible:hover {
+      background-color: rgb(128, 128, 128);
+  }
+  
+  .stayHomeContainer {
+    padding: 0 18px;
+    display: none;
+    overflow:hidden;
+    background-color: purple;
+  }
+
+  .fullname {
+    padding-top:5vw;
+    padding-left:15vw;
+    color:darkslategrey;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:900;      /*thicker text*/
+    color:rgb(70, 91, 93);
+    font-size:10vw;       /*use vw for %of viewing width to make responsive*/
+    text-shadow:          /*multiple shadows for depth look*/
+     0.15vw -0.05vw 0 black,
+     0.30vw -0.10vw 0 gray,
+     0.45vw -0.15vw 0 gray,
+     0.70vw -0.20vw 0 gray,
+     0.85vw -0.25vw 0 gray;
+    /* 1.00vw -0.30vw 0 black;*/
+  }
+  .fullname:before {         /*  insert before fullname element */
+    content: "Lisa Donohoo";
+    position: absolute;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:900;      /*thicker text*/
+    color: transparent;
+    font-size:10vw; 
+    transform: skewX(-40deg);
+    transform-origin: bottom left;
+    z-index: -1;                        /* behind the orig. element */
+    text-shadow:                          /*more shadows but this time blur and black*/
+     0.15vw -0.05vw .2vw rgb(0, 0, 0),
+     0.30vw -0.10vw .4vw black,
+     0.45vw -0.15vw .6vw black,
+     0.70vw -0.20vw .8vw black,
+     0.85vw -0.25vw 1vw black;
+  }
+  

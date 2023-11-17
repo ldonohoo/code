@@ -1,0 +1,45 @@
+p {
+    color: red;
+    width: 500px;
+    border: 1px solid green;
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    border: 0.5rem outset  pink;
+    outline: 0.5rem solid khaki;
+    border-radius: 12px;
+    outline-offset: 0.5rem;
+    box-shadow: 0 0 0 2rem skyblue;
+    padding: 1rem;
+    margin: 2rem;
+      
+  }
+  
+  p,
+  li {
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  body {
+    width:600px;
+    margin: 0 auto;
+    border: 5px solid black;
+  }
+
+
+
+  .photo img {
+
+     border-radius: 1.75vw;
+     width: 50%;
+     height: 50%;
+     outline: red solid 2vw;
+     /*border: solid;
+     border-width: 2vw;
+     border-color: red;*/
+     
+  }

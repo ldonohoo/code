@@ -1,0 +1,203 @@
+:root {
+    font-size: larger;
+    --radius: 0.8vw;
+    --orangey:  rgb(231, 165, 94);
+    --nice-green: rgba(0, 128, 0, 0.3);
+    --lt-nice-green: rgba(129, 212, 99, 0.3);
+    --pinkish: rgb(233, 145, 143);
+    --aqua-blue: rgb(63, 165, 165);
+    --bluegray: rgba(159, 173, 175, 0.582);
+    --darkgray: rgb(112, 109, 109);
+    --commonbrown: rgb(142, 96, 35);
+
+    --svgtreebubble:  polygon(27% 92%, 19% 97%, 16% 91%, 7% 95%, 10% 87%, 3% 87%, 5% 76%, 1% 70%, 4% 59%, 1% 52%, 6% 47%, 4% 41%, 9% 32%, 6% 28%, 9% 19%, 4% 19%, 10% 14%, 3% 10%, 14% 8%, 13% 3%, 26% 7%, 33% 3%, 39% 8%, 46% 1%, 54% 9%, 67% 2%, 73% 6%, 79% 1%, 84% 6%, 88% 1%, 89% 14%, 97% 7%, 94% 19%, 99% 24%, 93% 32%, 99% 38%, 94% 45%, 98% 53%, 93% 61%, 99% 70%, 92% 72%, 99% 76%, 94% 77%, 99% 81%, 92% 86%, 100% 91%, 89% 91%, 96% 98%, 86% 95%, 85% 99%, 80% 92%, 76% 98%, 73% 95%, 69% 99%, 62% 92%, 58% 98%, 53% 91%, 47% 97%, 44% 91%, 34% 98%);
+}
+
+
+
+
+
+
+body { 
+    margin: 0%;
+    display: grid;
+    grid-template-columns: minmax(14rem, 18rem) 70%;
+    grid-template-rows: auto auto auto auto;
+    
+}
+
+header {
+    background-color: var(--nice-green);
+    grid-row: 1;
+    grid-column: 1 / 5;
+    margin-bottom: 1%;
+}
+
+/* holds photo, contact info, and skills */
+.sidebar {
+    grid-row: 2;
+    grid-column: 1; 
+    padding: 3% 5% 5% 3%;
+    margin: 0% 1% 1% 1%;
+    font-size: 90%;
+    background-color: var(--bluegray);
+    border-radius: var(--radius);
+   }
+
+/* headshot photo */
+
+#photo img {
+    display: block;
+    margin: 5% auto;
+    width: 80%;
+    height: 80%;
+    border-radius: var(--radius);
+    outline: .5vw solid var(--bluegray);
+}
+
+.name {
+    border-radius: var(--radius);
+    background-color: var(--nice-green);
+    border: .5vw outset var(--bluegray);
+    text-align: center;
+    vertical-align: baseline;
+    font-size: larger;
+}
+
+.name span {
+    font-size: smaller;
+}
+
+/* separate contact button formatting */
+.contact-info div {
+    border-radius: var(--radius);
+    margin: 1% 0% 1% 0%;
+    text-align:justify;
+    padding: 5%;
+    background-color: var(--nice-green);
+    border: .3vw outset var(--bluegray);
+}
+
+.contact-info button {
+    border-radius: var(--radius);
+    margin: 1% 0% 1% 0%;
+    width: 100%;
+    text-align:justify;
+    padding: 5%;
+    background-color: var(--nice-green);
+    border: .3vw outset var(--bluegray);
+    font-size: medium;
+    
+}
+.phone {
+    padding-top: 8%;
+}
+
+/* contact icon formatting- keep icon size same*/
+.contact-info img {
+    object-fit: contain;
+    width: 1rem;
+    height: auto;
+    vertical-align: middle;
+    padding-right:.5vw;
+}
+
+.skills {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.skills div {
+    border-radius: var(--radius);
+    background-color: var(--orangey);
+    margin: 1%;
+    padding: 3%;
+    width:fit-content;
+    font-size: larger;
+    border: .3vw outset var(--bluegray);
+}
+
+/* main profile/experience section */
+.about {
+    grid-row: 2 / 3;
+    grid-column: 2 / 5;
+    margin: 0% 3% 2% 1%;
+    font-size: larger;
+ }
+
+/* about section: profile and experience */
+.about > div {
+    background-color: var(--bluegray);
+    border-radius: var(--radius);
+    padding: 2%;
+    margin-bottom: 1%;
+}
+
+.profile {
+    display: flex;
+    font-size: smaller;
+    background-image: url(bare-tree.png);
+    background-size: 200px auto;
+    background-position-x: 5%; 
+    background-position-y:bottom;
+    background-repeat: no-repeat;
+}
+
+.treebox {
+    width: 20%;
+    font-size: larger;
+}
+
+.profile .intro {
+    background-color: var(--nice-green);
+    border-radius: var(--radius);
+    border: .3vw outset var(--bluegray);
+    width: 85%;
+    padding: 2% 2% 2% 2%;
+    margin: 1%;
+    text-align: center;
+    font-size: smaller;
+
+}
+
+.education p, .experience > div {
+    background-color: var(--nice-green);
+    border-radius: var(--radius);
+    border: .3vw outset var(--bluegray);
+    padding: 2%;
+    margin: 1%;
+    font-size: smaller;
+}
+
+
+
+.about div p, .about div ul {
+    font-size: smaller;
+}
+
+.erps div, .change-control div {
+    background-color: rgb(142, 96, 35);
+
+}
+
+
+footer {
+    background-color: var(--nice-green);
+    grid-column: 1 / 5;
+    margin-top: 1%;
+    padding: 1% 0% 0% 3%;
+}
+
+
+/*get rid of address and website*/
+.addr, .website {
+    display: none;
+}
+
+.erps, .change-control, .schedulers {
+    display: none;
+}
+
+button:hover {
+    background-color: var(--lt-nice-green);
+}
