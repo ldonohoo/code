@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
+    <script defer src="try.js" type="text/javascript" ></script>
+    <style>
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
@@ -35,7 +36,7 @@
 <p>grid-row-start / grid-column-start / grid-row-end / grid-column-end.</p>
 
 <p>Item8 will start on row-line 1 and column-line 2, and end on row-line 5 column-line 6:</p>
-
+<p id="moose">Moose paragraph here</p>
 <div class="grid-container">
   <div class="item1">This is number one. I can't even.</div>
   <div class="item2">2</div>
@@ -51,8 +52,9 @@
   <div class="item12">12</div>
   <div class="item13">13</div>
   <div class="item14">14</div>
-  <div class="item15">15</div>
+  <div id="ooo" class="item15">15</div>
 </div>
 
 </body>
+    <script>document.getElementById("ooo").innerHTML = "green";</script>
 </html>

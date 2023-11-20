@@ -43,3 +43,27 @@ h1 {
      border-color: red;*/
      
   }
+
+#name {
+  position: relative;
+  width: 500px;
+  height: 300px;
+  background: green;  /*overlays the pretty gradient box to make fake border*/
+  margin: 10px;  /*match the two margin/neg margins*/
+  border-radius: 5px;
+}
+
+#innername {
+  position: absolute;
+  content: "";
+  inset: 0px 0px 0px 0px; 
+  z-index: -1;   /*places behind object*/
+  margin: -10px;  /*match with margin above*/
+  border-radius: inherit;  /*lets you inherit radius*/
+  background-image: linear-gradient(45deg, purple, orange);
+     /*
+  top: 0;     /*these are how far off the relative positioned element 
+  right: 0;
+  bottom: 0;     inset is shorthand for top right bottom left
+  left: 0;*/
+}

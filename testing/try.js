@@ -1,1 +1,3 @@
-console.print("Test of this!");
+document.getElementById("moose").innerHTML = "howdy2    ";
+
+
