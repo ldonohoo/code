@@ -148,16 +148,16 @@ header {
     background-repeat: no-repeat;
 }
 
-.treebox {
-    width: 300px;
+#treebox {
+	position: relative;
     font-size: larger;
+	padding-right: 20%;
 }
 
 .profile .intro {
     background-color: var(--nice-green);
     border-radius: var(--radius);
     border: .3vw outset var(--bluegray);
-    width: 85%;
     padding: 2% 2% 2% 2%;
     margin: 1%;
     text-align: center;
@@ -223,6 +223,7 @@ button:hover {
 }
 
 
+
 /* idle animation associated with ball on page load and when animation done */
 @keyframes ball-idle {
     10% {opacity: 0;
@@ -232,11 +233,36 @@ button:hover {
 /* this animation associated with ball when ballDrop() triggers */
 @keyframes ball-drop {
     0% {
-        transform: translateX(20vw);
-        animation-timing-function: ease-in-out;  
+        background-color: green;
+        transform: translateX(0vw);
         opacity: 1;  
     }
-
+    10% {
+        background-color: green;
+        transform: translateX(-55vw);
+		animation-timing-function: cubic-bezier(.57, .35, .35, .35);
+        opacity: 1;  
+    }
+	12% {
+        background-color: green;
+        transform: translateX(-56.5vw) translateY(1vw);
+        animation-timing-function: cubic-bezier(0.40, 0.55, 0.35, 0.15);  
+    }
+    15% {
+        background-color: green;
+        transform: translateX(-58vw) translateY(.95vw);
+        animation-timing-function: cubic-bezier(0.15, 0.35, 0.78, .70);  
+    }
+    38% {
+        background-color: orange;
+        transform: translateX(-58vw) translateY(25vw);
+        animation-timing-function: cubic-bezier(1.0, .78, .55, .33); 
+    }
+    100% {
+        background-color: pink;
+        transform: translateX(-58vw) translateY(33vw);
+        animation-timing-function: ease-in-out;   
+    }
 }
 
 
