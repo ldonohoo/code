@@ -1,7 +1,16 @@
+
+
+function bouncePhoto () {
+	let photo = document.getElementById("photoimg");
+	photo.style.animation= "bounce-photo .2sec both";
+	alert("wowsers");
+}
+
+
 function ballDrop() {
 
-    var ball = document.getElementById("ball");
-    var name = document.getElementById("name");
+    let ball = document.getElementById("ball");
+    let name = document.getElementById("name");
     ball.style.animation= "ball-drop 40s both";
     
     name.style.backgroundColor = "pink";
@@ -20,25 +29,40 @@ function getLeaves() {
 		leaf.style.height = '12px';
 		leaf.style.borderRadius = "1px 8px .25px 8px";
 		leaf.style.background = "#6DC75F";
-		leaf.style.background = "red";
 		leaf.style.position = "absolute";
 		leaf.style.transform = `translate(${xpos}px, ${ypos}px)`;
 		leaf.style.transform = `rotate(${angle})`;
 		return leaf;
 	}
 	/* populate tree with leaves */ 
-	var treebox = document.getElementById("treebox");
 	for (i = 1; i < numLeaves; i++) {
-		var xpos = Math.floor(Math.random() * 300);
-		var ypos = Math.floor(Math.random() * 200);
-		var angle = Math.floor(Math.random() * 180);
-		var newLeaf = leafFactory(angle, xpos, ypos, i);
+		let xpos = Math.floor(Math.random() * 300);
+		let ypos = Math.floor(Math.random() * 200);
+		let angle = Math.floor(Math.random() * 180);
+		let newLeaf = leafFactory(angle, xpos, ypos, i);
 		console.log(xpos, ypos, angle);
-		treebox.appendChild(newLeaf);
+		document.getElementById("treebox").appendChild(newLeaf);
 	}
 
 }
 
+	/*
+	wiggle: function() {
+		this.style.transform = "skew(10deg,10deg)";
+	},
+	twist: function() {
+		this.style.transform = "rotate(10deg)";
+	};
+	-find random angle
+	-find random x, y within tree Range
+	-make a leaf
+	*/
+
+
+// Event listeners here:
+
+document.getElementById("name").addEventListener("click", getLeaves);
+//document.getElementById("photo").addEventListener("mouseover", bouncePhoto);
 
 	/*
 	wiggle: function() {

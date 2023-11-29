@@ -1,7 +1,8 @@
 :root {
     font-size: larger;
     --radius: 0.8vw;
-    --orangey:  rgb(231, 165, 94);
+    --orangey:  rgb(196, 140, 79);
+    --lt-orangey: rgb(231, 165, 94);
     --nice-green: rgba(85, 120, 85, 0.3);
     --lt-nice-green: rgba(149, 201, 129, 0.3);
     --pinkish: rgb(233, 145, 143);
@@ -43,7 +44,7 @@ header {
 
 /* headshot photo */
 
-#photo img {
+#photoimg {
     display: block;
     margin: 5% auto;
     width: 80%;
@@ -52,15 +53,8 @@ header {
     outline: .5vw solid var(--bluegray);
 }
 
+
 #name {
-    /*
-    border-radius: var(--radius);
-    background-color: var(--nice-green);
-    border: .5vw outset var(--bluegray);
-    text-align: center;
-    vertical-align: baseline;
-    font-size: larger;
-*/
     border-radius: var(--radius);
     background-color: var(--nice-green);
     border: .5vw outset var(--bluegray);
@@ -131,6 +125,8 @@ header {
  }
 
 /* about section: profile and experience */
+
+/* style outer boxes containing 3 headings */
 .about > div {
     background-color: var(--bluegray);
     border-radius: var(--radius);
@@ -138,42 +134,15 @@ header {
     margin-bottom: 1%;
 }
 
-.profile {
-  /*  background-image: url(tree.png);
-    background-size: 200px auto;
-    background-position-x: 5%; 
-    background-position-y:bottom;
-    background-repeat: no-repeat;*/
+.tree {
+	float: left;
+    margin: 0;
 }
 
 #treebox {
 	position: relative;
-	border: .2vw solid black;
-	width: 25%;
 }
 
-#treebox > img {
-	vertical-align: bottom;
-	max-width: 10rem;
-
-}
-/*
-.profile {
-    display: flex;
-    font-size: smaller;
-    background-image: url(tree.png);
-    background-size: 200px auto;
-    background-position-x: 5%; 
-    background-position-y:bottom;
-    background-repeat: no-repeat;
-}
-
-#treebox {
-	position: relative;
-    font-size: larger;
-	padding-right: 20%;
-}
-*/
 .profile .intro {
     background-color: var(--nice-green);
     border-radius: var(--radius);
@@ -186,16 +155,19 @@ header {
 
 }
 
-.education p, .experience > div {
+.experience > div,
+.education p
+ {
     background-color: var(--nice-green);
     border-radius: var(--radius);
     border: .3vw outset var(--bluegray);
     padding: 2%;
     margin: 1%;
     font-size: smaller;
+    text-align: left;
 }
 
-.about div p, .about div ul {
+.about ul {
     font-size: smaller;
 }
 
@@ -220,12 +192,20 @@ footer {
     display: none;
 }
 
-button:hover {
+/* animation of buttons, etc */
+
+button:hover,
+#name:hover {
     background-color: var(--lt-nice-green);
 }
 
-#name:hover {
-    background-color: var(--lt-nice-green);
+
+.skills > div:hover {
+    background-color: var(--lt-orangey);
+}
+
+#photoimg:hover {
+    animation: bounce-photo .2s both cubic-bezier(0.2, 0.7, 0.7, 0.3);
 }
 
 #ball {
@@ -243,7 +223,25 @@ button:hover {
     background-color: green;
 }
 
+/* animation keyframes */
 
+@keyframes bounce-photo {
+    0% { 
+        transform: scale(1.1, 1.1);
+    }
+    50% {
+        transform: scale(1.2, 1.2);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes idle-photo {
+    10% {
+        opacity: 0;
+    }
+}
 
 /* idle animation associated with ball on page load and when animation done */
 @keyframes ball-idle {
@@ -251,7 +249,8 @@ button:hover {
     }
 }
 
-/* this animation associated with ball when ballDrop() triggers */
+/* this animation associated with ball when
+   ballDrop() triggers with click event*/
 @keyframes ball-drop {
     0% {
         background-color: green;
@@ -288,8 +287,6 @@ button:hover {
 
 
 /*
-.name:active {
-   
     #egg {
       display: block;
       width: 126px;
@@ -297,5 +294,4 @@ button:hover {
       background-color: red;
       border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     }
-   
-}*/
+  */ 
