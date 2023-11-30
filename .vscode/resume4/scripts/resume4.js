@@ -1,35 +1,22 @@
 
-
-function bouncePhoto () {
-	let photo = document.getElementById("photoimg");
-	photo.style.animation= "bounce-photo .2sec both";
-	alert("wowsers");
-}
-
-
 function ballDrop() {
-
     let ball = document.getElementById("ball");
     let name = document.getElementById("name");
     ball.style.animation= "ball-drop 40s both";
-    
-    name.style.backgroundColor = "pink";
 }
 
 function getLeaves() {
-
 	const numLeaves = 20;
-	
 	/* make new leaf elements in the dom! should be able to move */
 	const leafFactory = (angle, xpos, ypos, leafNo) => {
 		/* create new div element with unique leaf id */
 		const leaf = document.createElement("div");
 		leaf.setAttribute("id", "leaf " + leafNo);
+		leaf.style.position = "absolute";
 		leaf.style.width = '12px';
 		leaf.style.height = '12px';
 		leaf.style.borderRadius = "1px 8px .25px 8px";
 		leaf.style.background = "#6DC75F";
-		leaf.style.position = "absolute";
 		leaf.style.transform = `translate(${xpos}px, ${ypos}px)`;
 		leaf.style.transform = `rotate(${angle})`;
 		return leaf;
@@ -43,7 +30,6 @@ function getLeaves() {
 		console.log(xpos, ypos, angle);
 		document.getElementById("treebox").appendChild(newLeaf);
 	}
-
 }
 
 	/*
@@ -57,12 +43,45 @@ function getLeaves() {
 	-find random x, y within tree Range
 	-make a leaf
 	*/
+function spraySparkles() {
+	alert("sparkle!");
+}
+
+/*
+function popupSkill(skill) {
+	alert("click on box" + skill.innerHTML);
+	const popup = document.getElementById("popup");
+	const name = skill.innerHTML;
+	const para = skill.nextElementSibling.innerHTML;
+	popup.innerHTML = name;
+	popup.display = "block";
+}*/
 
 
-// Event listeners here:
+
+// Event listeners below:
 
 document.getElementById("name").addEventListener("click", getLeaves);
-//document.getElementById("photo").addEventListener("mouseover", bouncePhoto);
+document.getElementById("photo").addEventListener("click", spraySparkles);
+
+// Set event listeners for skills (fake buttons)
+
+
+const skills = document.getElementsByClassName("skill-name");
+for (i=0; i < skills.length; i++) {
+	skills[i].addEventListener("click",  (event) => {
+		console.log(event.target.innerHTML);
+		const popup = document.getElementById("popup");
+		const text = event.target.innerText + "<br>" + 
+				event.target.nextElementSibling.innerHTML;
+		popup.innerHTML = text;
+		popup.style.display = "block";
+	});
+};
+
+
+	
+    // Now do something with my button
 
 	/*
 	wiggle: function() {
