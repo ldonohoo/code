@@ -27,7 +27,7 @@
 body { 
     position: relative;
     display: grid;
-    grid-template-columns: minmax(12rem, 22rem) 70%;
+    grid-template-columns: minmax(12rem, 22rem) min-content;
     grid-template-rows: auto auto auto auto;
     margin-left: 0;
     margin-right: 0;
@@ -57,8 +57,8 @@ header {
 #photoimg {
     display: block;
     margin: var(--md-marg) auto;
-    width: 80%;
-    height: 80%;
+    width: 65%;
+    height: 65%;
     border-radius: var(--radius);
     outline: var(--border-width) solid var(--bluegray);
 }
@@ -117,6 +117,7 @@ header {
     height: calc( 3rem - .9rem);
     font-size: 1rem;
     border: var(--border-width2) outset var(--bluegray);
+    cursor: pointer;
 }
 
 /* main profile/experience section */
@@ -166,11 +167,26 @@ header {
 }
 
 #popup {
-    background-color: gray;
+    background-color: rgba(0, 0, 0, 0.679);
     border-radius: var(--radius);
+    color: white;
+    width: 15rem;
     height: auto;
+    margin: 15rem 0 0 0;
+    padding: 2rem;
+    z-index: 1;
+    position: fixed;
     display: none;
+    animation: zoom 0.2s;
 }
+
+#popup span {
+    display: inline-block;
+    width: 13rem;
+    background-color: var(--darkgray);
+    padding: .8rem;
+}
+
 
 .experience > div,
 .education p, 
@@ -243,6 +259,7 @@ figure *
 button:hover,
 #name:hover {
     background-color: var(--lt-nice-green);
+    cursor: pointer;
 }
 
 
@@ -270,6 +287,11 @@ button:hover,
 }
 
 /* animation keyframes */
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
 
 @keyframes bounce-photo {
     0% { 

@@ -1,4 +1,3 @@
-
 // compute the pixels per rem for a given screen size
 //		(used when positioning leaves on tree)
 let bodyFontSize = window.getComputedStyle(document.body, null).getPropertyValue("font-size");
@@ -14,32 +13,36 @@ function ballDrop() {
 }
 
 function getLeaves() {
-	const numLeaves = 500;
+	const numLeaves = 20;
 	// make new leaf elements in the dom! should be able to move 
 	const leafFactory = (angle, xpos, ypos, leafNo) => {
-		// leaf shape in rem below:
+		// create new div element with unique leaf id 
 		const leafPt1 = remToPixels(.06);
 		const leafPt2 = remToPixels(.5);
 		const leafPt3 = remToPixels(.016);
 		const leafPt4 = remToPixels(.5);
-		// create new div element with unique leaf id
+		xpos = remToPixels(xpos);
+		ypos = remToPixels(ypos);
+
 		const leaf = document.createElement("div");
 		leaf.setAttribute("id", "leaf " + leafNo);
 		leaf.style.position = "absolute";
-		leaf.style.width = remToPixels(.75) + "px";
-		leaf.style.height = remToPixels(.75) + "px";
+		leaf.style.width = remToPixels(.75);
+		leaf.style.height = remToPixels(.75);
+		//leaf.style.borderRadius = "1px 8px .25px 8px";
 		leaf.style.borderRadius = `${leafPt1}px ${leafPt2}px ${leafPt3}px ${leafPt4}px`;
 		leaf.style.background = "#6DC75F";
-		leaf.style.transformOrigin = "center";
-		console.log("leafpos: "+ xpos + "," + ypos);
+		leaf.style.rotate = `${angle}deg`;
+		console.log("position: " + xpos + ",," + ypos);
+		console.log("leaf: " + leafPt1 + "," + leafPt2 + ","+ leafPt3 + "," + leafPt4 + ",");
 		leaf.style.transform = `translate(${xpos}px, ${ypos}px)`;
-		//leaf.style.rotate = `${angle}deg`;
+		//leaf.style.transform = `translate(${remToPixels(xpos)}, ${remToPixels(ypos)})`;
 		return leaf;
 	}
 	/* populate tree with leaves */ 
 	for (i = 1; i < numLeaves; i++) {
-		let xpos = remToPixels(Math.random() * 13);
-		let ypos = remToPixels(Math.random() * 8);
+		let xpos = Math.floor(Math.random() * 13);
+		let ypos = Math.floor(Math.random() * 13);
 		let angle = Math.floor(Math.random() * 359);
 		console.log("pos:"+xpos+","+ypos)
 		let newLeaf = leafFactory(angle, xpos, ypos, i);
@@ -47,12 +50,9 @@ function getLeaves() {
 		document.getElementById("treebox").appendChild(newLeaf);
 	
 	}
-	console.log("redleaf");
-	let xposy = remToPixels(13);
-	let yposy = remToPixels(8);
-	const newLeaf2 = leafFactory(68, xposy, yposy, 999);
-	newLeaf2.style.backgroundColor = "red";
-	document.getElementById("treebox").appendChild(newLeaf2);
+	const newLeaf = leafFactory(68, 32, 96, 42);
+	newLeaf.style.backgroundColor = "red";
+	document.getElementById("treebox").appendChild(newLeaf);
 }
 
 	/*
