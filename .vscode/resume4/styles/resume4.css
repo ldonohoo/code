@@ -126,14 +126,7 @@ header {
     cursor: pointer;
 }
 
-.skill-name img {
-    width: 5rem;
-    height: auto;
-}
-
 #popFig {
-    display: flex;
-    flex-flow: row-wrap;
     font-size: .6rem;
     font-style: italic;
 }
@@ -192,7 +185,7 @@ header {
     margin: 15rem 0 0 0;
     padding: 2rem;
     z-index: 1;
-    position: fixed;
+    position: absolute;
     display: none;
     animation: zoom 0.2s;
 }
@@ -233,7 +226,7 @@ ul {
     padding: 0 0 0 var(--md-marg);
 }
 
-.tooltiptext {
+.tooltiptext2 {
     position: absolute;
     width: auto;
     background-color: var(--trans-black);
@@ -242,6 +235,17 @@ ul {
     padding: var(--sm-pad);
     margin-left: 13rem;
     z-index: 1;
+}
+
+.tooltiptext {
+    position: absolute;
+    width: auto;
+    background-color: var(--trans-black);
+    color: white;
+    border-radius: var(--radius);
+    padding: var(--sm-pad);
+    z-index: 1;
+    margin-left: 3rem;
 }
 
 footer {
@@ -261,6 +265,7 @@ footer span {
 
 /* hide this stuff: display of skills popup details and tooltips */
 .tooltiptext,
+.tooltiptext2,
 .skills p,
 #fig,    
 #ball

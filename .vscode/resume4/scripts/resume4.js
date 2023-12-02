@@ -106,23 +106,23 @@ function spraySparkles() {
 //name, phone, email tooltip events
 document.getElementById("name").addEventListener("click", openResume);
 document.getElementById("name").addEventListener("mouseover", (event) => { 
-	if (event.target.querySelector(".tooltiptext") != null) {
-		event.target.querySelector(".tooltiptext").style.display = "block";	} });
+	if (event.target.querySelector(".tooltiptext2") != null) {
+		event.target.querySelector(".tooltiptext2").style.display = "block";	} });
 document.getElementById("name").addEventListener("mouseout", (event) => {
-	if (event.target.querySelector(".tooltiptext") != null) {
-		event.target.querySelector(".tooltiptext").style.display = "none"; 	} });
+	if (event.target.querySelector(".tooltiptext2") != null) {
+		event.target.querySelector(".tooltiptext2").style.display = "none"; 	} });
 document.querySelector(".phone").addEventListener("mouseover", (event) => { 
-	if (event.target.querySelector(".tooltiptext") != null) {
-		event.target.querySelector(".tooltiptext").style.display = "block";	} });
+	if (event.target.querySelector(".tooltiptext2") != null) {
+		event.target.querySelector(".tooltiptext2").style.display = "block";	} });
 document.querySelector(".phone").addEventListener("mouseout", (event) => {
-	if (event.target.querySelector(".tooltiptext") != null) {
-		event.target.querySelector(".tooltiptext").style.display = "none"; } });
+	if (event.target.querySelector(".tooltiptext2") != null) {
+		event.target.querySelector(".tooltiptext2").style.display = "none"; } });
 document.querySelector(".email").addEventListener("mouseover", (event) => { 
-	if (event.target.querySelector(".tooltiptext") != null) {
-		event.target.querySelector(".tooltiptext").style.display = "block";	} });
+	if (event.target.querySelector(".tooltiptext2") != null) {
+		event.target.querySelector(".tooltiptext2").style.display = "block";	} });
 document.querySelector(".email").addEventListener("mouseout", (event) => {
-	if (event.target.querySelector(".tooltiptext") != null) {
-		event.target.querySelector(".tooltiptext").style.display = "none"; 	} });
+	if (event.target.querySelector(".tooltiptext2") != null) {
+		event.target.querySelector(".tooltiptext2").style.display = "none"; 	} });
 
 document.getElementById("photo").addEventListener("click", spraySparkles);
 document.querySelector(".phone").addEventListener("click", (event) => {navigator.clipboard.writeText(event.target.innerText);} );
@@ -134,20 +134,33 @@ document.getElementById("ball").addEventListener("click", ballDrop);
 const skills = document.getElementsByClassName("skill-name");
 for (i=0; i < skills.length; i++) {
 	//add listeners for tooltip popups on mouseover and mouseout
-	/*if (skills[i].className.includes("tooltip")) {
-		console.log("classname:" + skills[i].innerText);
+	tooltip = skills[i].innerHTML;
+	if (skills[i].querySelector(".tooltiptext")) {
+		console.log("adding listener for: "+ tooltip + ";");
 		skills[i].addEventListener("mouseover",  (event) => { 
-			event.target.querySelector(".tooltiptext").style.display = "block"; });
+			let tooltipDisplay = event.target.querySelector(".tooltiptext");
+			if (tooltipDisplay != null) {
+				event.target.querySelector(".tooltiptext").style.display = "block";
+			} 
+		});
 		skills[i].addEventListener("mouseout",  (event) => { 
-				event.target.querySelector(".tooltiptext").style.display = "block"; });
-	}*/
+			let tooltipDisplay = event.target.querySelector(".tooltiptext");
+			if (tooltipDisplay != null) {
+				event.target.querySelector(".tooltiptext").style.display = "none";
+			} 
+		});
+		//event.target.querySelector(".tooltiptext").style.display = "none";			
+	};	
+}
+for (i=0; i < skills.length; i++) {
 	//add listeners for skills popups on click
 	skills[i].addEventListener("click",  (event) => {
+		console.log("firing event:" + event.target.innerHTML);
 		let text = event.target.innerText + "<br><span>" + 
 			event.target.nextElementSibling.innerHTML + "</span>";
 		const popup = document.getElementById("popup");
 		const figure = event.target.nextElementSibling.nextElementSibling;
-		if (figure) { text = text + "<span id=popFig>" + figure.innerHTML + "<span>"};
+		if (figure)  text = (text + "<span id=popFig>" + figure.innerHTML + "<span>");
 		popup.innerHTML = text;
 		if (popup.style.display === "block") {	//close box so you see animation if box already open
 			popup.style.display = "none";
