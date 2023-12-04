@@ -5,7 +5,6 @@ pixelsPerRem = parseInt(bodyFontSize.slice(0, -2));
 const remToPixels = (rem) => { return `${rem * pixelsPerRem}`; };
 
 // populate tree with leaves :)
-getLeaves();
 
 
 //functions:
@@ -97,7 +96,7 @@ function getLeaves() {
 	*/
 
 function spraySparkles() {
-	alert("sparkles!");
+	alert("<great effect here>");
 }
 
 
@@ -125,6 +124,7 @@ document.querySelector(".email").addEventListener("mouseout", (event) => {
 		event.target.querySelector(".tooltiptext2").style.display = "none"; 	} });
 
 document.getElementById("photo").addEventListener("click", spraySparkles);
+document.querySelector(".tree").addEventListener("click", getLeaves);
 document.querySelector(".phone").addEventListener("click", (event) => {navigator.clipboard.writeText(event.target.innerText);} );
 document.querySelector(".email").addEventListener("click", (event) => {navigator.clipboard.writeText(event.target.innerText);} );
 document.getElementById("ball").addEventListener("click", ballDrop);

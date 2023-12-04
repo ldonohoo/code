@@ -34,6 +34,7 @@ body {
     grid-template-rows: auto auto auto auto;
     margin-left: 0;
     margin-right: 0;
+
 }
 
 header {
@@ -42,13 +43,16 @@ header {
     grid-row: 1;
     grid-column: 1 / 5;
     padding-top: var(--sm-marg);
-    padding-right: 10rem;
+}
+
+header > span {
     white-space: pre;
     font-style: italic;
     font-size: .7rem;
     vertical-align: bottom;
-    text-align: right;
-    
+    padding-left: 70%;
+    color: black;
+    transition: color .3s, font-size .3s, font-style .3s;
 }
 
 /* holds photo, contact info, and skills */
@@ -290,6 +294,12 @@ footer span {
 
 /* animation of buttons, etc */
 
+.tree:hover {
+    color: red;
+    font-size: 2;
+    font-style: oblique;
+}
+
 button:hover,
 #name:hover {
     background-color: var(--lt-nice-green);
@@ -304,6 +314,7 @@ button:hover,
 
 #photoimg:hover {
     animation: bounce-photo .2s both cubic-bezier(0.2, 0.7, 0.7, 0.3);
+    animation: idle-photo .01s both;
 }
 
 #ball {
@@ -323,6 +334,45 @@ button:hover,
 
 /* animation keyframes */
 
+@keyframes pulse {
+    0% {
+        transform: scale(0,0);
+    }
+    1% {
+        transform: scale(2,2);
+    }
+    2% {
+        transform: scale(0,0);
+    }
+    3% {
+        transform: scale(2,2);
+    }
+    4% {
+        transform: scale(0,0);
+    }
+    5% {
+        transform: scale(2,2);
+    }
+    6% {
+        transform: scale(0,0);
+    }
+    7% {
+        transform: scale(2,2);
+    }
+    8% {
+        transform: scale(0,0);
+    }
+    9% {
+        transform: scale(2,2);
+    }
+    10% {
+        transform: scale(0,0);
+    }
+    100% {
+         transform: scale(0,0); 
+    }
+}
+
 @keyframes zoom {
     from {transform:scale(0)}
     to {transform:scale(1)}
@@ -338,6 +388,17 @@ button:hover,
     100% {
         transform: scale(1, 1);
     }
+}
+
+@keyframes spin-photo {
+    0% {
+        transform: rotate(1.5turn);
+        animation-timing-function: cubic-bezier(.80, .70, .30, .20);
+    }
+    60% {
+        transform: rotate(.5turn);
+        animation-timing-function: ease-in-out;
+    }    
 }
 
 @keyframes idle-photo {
