@@ -323,6 +323,30 @@ button:hover,
 
 /* animation keyframes */
 
+@keyframes wiggle {
+    0% { 
+        transform: skew(37deg);
+    }
+    50% {
+        transform: skew(-37deg);
+    }
+    100% {
+        transform: skew(37deg);
+    }
+}
+
+@keyframes blow {
+    0% { 
+        transform: scale(1,1);
+    }
+    50% {
+        transform: scale(1.3,1.15);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
 @keyframes zoom {
     from {transform:scale(0)}
     to {transform:scale(1)}
