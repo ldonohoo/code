@@ -161,46 +161,39 @@ class Canopy {
 					break;
 			}
 			let branch = 1;
-			let numLeaves = 1;
-			animProfile = { leavesToAnimate: numLeaves, branchMoveType: "wiggle", branchDuration: 600, branchDelay: 800, branchIter: 8,  branchTiming: "ease-in-out"}
+			let numLeaves = 15;
+			animProfile = { leavesToAnimate: numLeaves, branchMoveType: "wiggle", branchDuration: 500, branchDelay: 0, branchIter: 20,  branchTiming: "ease-in-out"};
 			return animProfile;
 		}
-		function moveBranch(leaves, branchNo, animProfile) {
+		function moveBranch(leaves, animProfile) {
 			// move each leaf in branch 
-			console.log("inbranch: " + branchNo +":" );
 			while (leaves.length > 0) {
+				// grab first random leaf on this branch to animate
 				let leafId = "leaf" + leaves.pop();
 				// get leaf element 
-				console.log("leafid: " + leafId + "okie");
 				let queryLeafId = `#${leafId}`;
-				console.log(queryLeafId + " andbranch: " + branchNo + "andlength: "+ leaves.length);
 				let leaf = document.querySelector(queryLeafId);
-				console.log(leaf);
-	
 				let moveType = animProfile.branchMoveType;
 				// some leaf animation properties are based on branch but slightly randomized to appear unique
-				let duration = animProfile.branchDuration + Math.floor(Math.random() * 850 - 150);
+				let duration = animProfile.branchDuration + Math.floor(Math.random() * 650 - 150);
 				let iter = animProfile.branchIter + Math.floor(Math.random() * 8);
 				let direction = "alternate-reverse";
-				let delay = animProfile.branchDelay + Math.floor(Math.random() * 600 - 100);
+				let delay = animProfile.branchDelay + Math.floor(Math.random() * 100);
 				let timing = animProfile.branchTiming;
 				let fillMode = "both";
 				console.log("anim:"+ " mt:" + moveType + " dur:"+ duration + " iter:"+ iter + " direc:"+ direction + " del:"+ delay + " timing:"+ timing+ " flmd:" + fillMode);
-				//leaf.style.animation= `${moveType} ${duration} ${iter} ${direction} ${delay} ${timing} ${fillMode}`;
-				leaf.style.animation = "wiggle 5s alternate-reverse 10";
+				leaf.style.animation= `${moveType} ${duration}ms ${iter} ${direction} ${delay}ms ${timing} ${fillMode}`;
 			}
 		}
 		// get leaves, get desired animation profile, then
 		// 		animate each region of leaves with moveBranch
 		const animProfile = getAnimProfile();
 		const leafNos = getLeafNos(animProfile.leavesToAnimate);
-		const branchNo = 1;
-		console.log("at movebranch call");
-		moveBranch(leafNos, branchNo, animProfile);	
+		moveBranch(getLeafNos(animProfile.leavesToAnimate), animProfile);	
 	}
 }
 
-const canopy1 = new Canopy(5);
+const canopy1 = new Canopy(30);
 canopy1.getLeaves();
 canopy1.breeze("mild");
 console.log("wth"+ canopy1);
