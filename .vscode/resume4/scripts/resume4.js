@@ -134,42 +134,70 @@ class Canopy {
 	}
 	breeze(type) {
 		//console.log("breeze start: " + type + this.numLeaves);
-		function getLeafNos(numLeaves) {
+		function getLeafNos(numLeaves, totalAnimLeaves) {
 			//get random, non-repeatable array of leaf numbers to correspond to leaf element ids
-			let leafNos = [];
-			//let numLeaves = 100;
-			for (let i = 0; i < numLeaves; i++) {
-				let leafNo = Math.floor(Math.random() * numLeaves);
-				while (leafNos.includes(leafNo)) {
-					leafNo = Math.floor(Math.random() * numLeaves);
+			let leafNoArray = [];
+			for (let i = 0; i < totalAnimLeaves; i++) {
+				let leafNo = Math.floor(Math.random() * numLeaves);  //numLeaves is leaves in whole Canopy
+				while (leafNoArray.includes(leafNo)) {
+					leafNo = Math.floor(Math.random() * numLeaves);  //numLeaves is leaves in whole Canopy
 				}
-				leafNos.push(leafNo);
+				leafNoArray.push(leafNo);
 			}
-			console.log("leaf array:"+ leafNos+"!!!");
-			return leafNos;
+			console.log("leaf array:"+ leafNoArray+"!!!");
+			return leafNoArray;
 		}
-		function getAnimProfile() {
+		function getAnimProfile(numLeaves) {
 			// set animation criteria for each breeze- 
 			//		e.g.- a stronger breeze has more frequent branch movements so less delays between movements, etc.
 			let animProfile = "";
+			let totalLeavesToAnim = 0, branchLeavesToAnim = 0, moveType = "", duration = 0, delay = 0, iter = 0, timing = "";
 			switch (type) {
 				case "strong":
+					totalLeavesToAnim = 50;
+					if (totalLeavesToAnim > numLeaves) { totalLeavesToAnim = numLeaves; };
+					branchLeavesToAnim = 15;
+					moveType = "wiggle";
+					duration = 1000;
+					delay = 0;
+					iter = 20;
+					timing = "ease-in-out";
 					break;
 				case "medium":
+					totalLeavesToAnim = 50;
+					if (totalLeavesToAnim > numLeaves) { totalLeavesToAnim = numLeaves; };
+					branchLeavesToAnim = 15;
+					moveType = "blow";
+					duration = 500;
+					delay = 0;
+					iter = 20;
+					timing = "ease-in-out";
 					break;
-				default :    // a mild breeze is default
+				case "mild":  // a mild breeze is default
+				default :    
+					totalLeavesToAnim = 50;
+					if (totalLeavesToAnim > numLeaves) { totalLeavesToAnim = numLeaves; };
+					//for (let i=0; i < )
+					branchLeavesToAnim = 15;
+					moveType = "wiggle";
+					duration = 400;
+					delay = 0;
+					iter = 50;
+					timing = "ease-in-out";
 					break;
 			}
 			let branch = 1;
-			let numLeaves = 15;
-			animProfile = { leavesToAnimate: numLeaves, branchMoveType: "wiggle", branchDuration: 500, branchDelay: 0, branchIter: 20,  branchTiming: "ease-in-out"};
+			animProfile = { leavesToAnimate: branchLeavesToAnim, branchMoveType: moveType, 
+							branchDuration: duration, branchDelay: delay, branchIter: iter,
+							branchTiming: timing };
+							console.log(animProfile+"end profile");
 			return animProfile;
 		}
-		function moveBranch(leaves, animProfile) {
+		function moveBranch(leafNoArray, animProfile) {
 			// move each leaf in branch 
-			while (leaves.length > 0) {
+			while (leafNoArray.length > 0) {
 				// grab first random leaf on this branch to animate
-				let leafId = "leaf" + leaves.pop();
+				let leafId = "leaf" + leafNoArray.pop();
 				// get leaf element 
 				let queryLeafId = `#${leafId}`;
 				let leaf = document.querySelector(queryLeafId);
@@ -187,9 +215,10 @@ class Canopy {
 		}
 		// get leaves, get desired animation profile, then
 		// 		animate each region of leaves with moveBranch
-		const animProfile = getAnimProfile();
-		const leafNos = getLeafNos(animProfile.leavesToAnimate);
-		moveBranch(getLeafNos(animProfile.leavesToAnimate), animProfile);	
+		const animProfile = getAnimProfile(this.numLeaves);
+		// get array of random leaf numbers, passing in total canopy leaves and leaves to animate
+		const leafNoArray = getLeafNos(this.numLeaves, animProfile.leavesToAnimate);
+		moveBranch(leafNoArray, animProfile);	
 	}
 }
 
