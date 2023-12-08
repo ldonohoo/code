@@ -21,7 +21,6 @@ class Canopy {
 	constructor(numLeaves) {
 		this.numLeaves = numLeaves;
 		this.isfull = false;
-        this.leavesByBranch = [];
 	}
 	getLeaves() {
 		//console.log("getleaves start"+ this.numLeaves+"!!!");
@@ -113,7 +112,7 @@ class Canopy {
 			leaf.style.left = `${xpos}px`;
 			leaf.style.top = `${ypos}px`;
 	
-			return {leaf, leafNo, branch};
+			return leaf;
 		}
 		function findBranch(xpos, ypos, maxLeft, maxTop) {
 			//console.log("findbranch here");
@@ -132,28 +131,24 @@ class Canopy {
 			
 			if (xpos <= maxTop1 && ypos <= maxLeft1) {   	  // in 1st quadrant  3 <= 6
 				//console.log("q1 returning xpos="+xpos+"ypos="+ypos);
-				return 0;	//return branch #0 (quadrant 1)
+				return 1;	//return branch #1
 			} else if (xpos < maxTop1 && ypos > maxLeft2) {  // in 2nd quadrant
 				//console.log("q2 returning xpos="+xpos+"ypos="+ypos);
-				return 1;	//return branch #1 (quadrant 2)
+				return 2;	//return branch #2
 			} else if (xpos > maxTop2 && ypos <= maxLeft1) {  // in 3rd quadrant
 				//console.log("q3 returning xpos="+xpos+"ypos="+ypos);
-				return 2;	//return branch #2 (quadrant 3)
+				return 3;	//return branch #3
 			} else if (xpos > maxTop2 && ypos > maxLeft2) {   // in 4th quadrant
 				//console.log("q4 returning xpos="+xpos+"ypos="+ypos);
-				return 3;	//return branch #3 (quadrant 4)
+				return 4;	//return branch #4
 			} else {
-				return 0;  //shouldn't get here...
+				return 1;  //shouldn't get here...
 				//console.log("oooops");
 			}
- 		
-        
-        }
+ 		}
 
 		// populate tree with leaves and append element to .treebox 
-
-		console.log(":end of getleaves:getting leaves now:" + this.numLeaves+"!!!");
-        let leavesByBranch1 = [], leavesByBranch2 = [], leavesByBranch3 = [], leavesByBranch4 = [];
+		console.log("::getting leaves now:" + this.numLeaves+"!!!");
 		let maxLeft = 13.2;  //max xpos from start in rem
 		let maxTop = 8;		//max ypos from start in rem
 		for (let i = 0; i < this.numLeaves; i++) {
@@ -164,17 +159,8 @@ class Canopy {
 			//console.log("branch found while pop leaves:"+branch+"::::");
 			let angle = Math.floor(Math.random() * 359);
 			let color = randomColor();
-            let newLeafInfo = leafFactory(angle, xpos, ypos, color, i, branch);
-			let newLeafNo = newLeafInfo.leafNo;
-            let newLeafElement = newLeafInfo.leaf;
-			document.getElementById("treebox").appendChild(newLeafElement);
-            //populate leavesByBranch array
-            if (newLeafInfo.branch === 0) { 
-                console.log("end of getleaves pop leavesbybranch branch1 " + newLeafNo );
-                leavesByBranch1.push(newLeafNo); }
-            if (newLeafInfo.branch === 1) { leavesByBranch2.push(newLeafNo); }
-            if (newLeafInfo.branch === 2) { leavesByBranch3.push(newLeafNo); }
-            if (newLeafInfo.branch === 3) { leavesByBranch4.push(newLeafNo); }
+			let newLeaf = leafFactory(angle, xpos, ypos, color, i, branch);
+			document.getElementById("treebox").appendChild(newLeaf);
 		}
 		//tree is full if at least one leaf created in treebox
 		if (this.numLeaves > 1) {
@@ -182,10 +168,6 @@ class Canopy {
 		} else {
 			this.isfull = false;
 		}
-        //store leavesByBranch in canopy object so breeze can use later
-        console.log("end of getleaves by branching: "+ leavesByBranch1 + "     "+  leavesByBranch2 + "     "+ leavesByBranch3 + "     " + leavesByBranch4);
-        this.leavesByBranch.push(leavesByBranch1, leavesByBranch2, leavesByBranch3, leavesByBranch4);
-        console.log("end of getleaves branch array: "+ this.leavesByBranch );
 	}
 	breeze(type) {
 		//console.log("breeze start: " + type + this.numLeaves);
@@ -199,37 +181,23 @@ class Canopy {
 			console.log("  Attbranch:"+ leaf.getAttribute("branch")+ "]]");
 			return leaf.getAttribute("branch");
 		}
-		function getLeafNos(amountOfLeavesToAnim, branchNo, leavesInBranch) {
+		function getLeafNos(numLeaves, animLeaves, branchNo) {
 			//get random, non-repeatable array of leaf numbers to correspond to leaf element #ids
  			let leafNoArray = [];
-            let leafIndex = null, leafNo = null;
-			if (amountOfLeavesToAnim > leavesInBranch.length) {
-			 	amountOfLeavesToAnim = leavesInBranch.length;
-				console.log("changing leaves to animate as only "+ leavesInBranch.length + " leaves avail...");
+			for (let i = 0; i < animLeaves; i++) {
+				let leafNo = Math.floor(Math.random() * numLeaves);  
+				console.log("in array? "+ leafNoArray.includes(leafNo)  );
+				console.log("getbranch? " + leafNo);
+				console.log( getBranchAttrib(leafNo), 2000);
+				// get a different random leaf number while: 
+				//		leaf number is a duplicate OR leaf number is not in right quadrant/branch 
+				while (leafNoArray.includes(leafNo) || Number(getBranchAttrib(leafNo)) != branchNo) {
+					leafNo = Math.floor(Math.random() * numLeaves);  
+				}
+				console.log("pushing leafno: "+leafNo);
+				leafNoArray.push(leafNo);
 			}
-			console.log("beg of getLeafNos hereeeeee....");
-			console.log("anmin leaves: "+ amountOfLeavesToAnim);
-			for (let i = 0; i < amountOfLeavesToAnim; i++) {
-                branchNo = Number(branchNo);
-
-                console.log(" branchno: "+ branchNo);
-                console.log("mid getleaves finding leaf arrays, adding leaves");
-                console.log("leaves in branch"+leavesInBranch);
-                leafIndex = Math.floor(Math.random() * leavesInBranch.length);
-				console.log("leafindex: "+ leafIndex);
-
-				leafNo = leavesInBranch[leafIndex];
-                /*while (leafNoArray.includes(leafNo)) {
-					console.log("get another number");
-                    leafIndex = Math.floor(Math.random() * leavesInBranch[branchNo].length);
-                    leafNo = leavesInBranch[leafIndex];
-					console.log("leafno:"+leafNo);
-                }*/
-       			leafNoArray.push(leafNo);  // add to selection of leaves to animate
-				leavesInBranch.pop();  		// remove leaf from selection process	
-				console.log(" leafno:"+leafNo+ " leafnoarray in progres:"+leafNoArray);
-			}
-			console.log("end of getleaves leaf array:"+ leafNoArray+"!!!");
+			console.log("leaf array:"+ leafNoArray+"!!!");
 			return leafNoArray;
 		}
 		/*  no longer used...
@@ -260,8 +228,9 @@ class Canopy {
 			console.log("type in getanprof: "+type+"  ");
 			switch (type) {
 				case "strong":
-					// (branches 0-3 correspond to quadrants 1-4 in typ. cartesian coord. sys)
-					branchesToAnim = [0, 1, 3, 2];	
+					totalLeavesToAnim = 50;
+					// (branch locs equal to quadrants in cartesian sys)
+					branchesToAnim = [1, 2, 4, 3];	
 					branchNumOfLeavesToAnim = [15, 16, 25, 10];
 					//moveTypes has an array of possibilites for each branch...
 					moveTypes = [["wiggle", "wiggle"], ["blow"], ["twist"], ["wiggle", "twist"]];
@@ -271,8 +240,9 @@ class Canopy {
 					timings = ["ease-in-out", "ease-in-out", "ease-in-out", "ease-in-out"];
 					break;
 				case "medium":
+					totalLeavesToAnim = 50;
 					// (branch locs equal to quadrants in cartesian sys)
-					branchesToAnim = [0, 1, 3, 2];	
+					branchesToAnim = [1, 2, 4, 3];	
 					branchNumOfLeavesToAnim = [15, 16, 25, 10];
 					//moveTypes has an array of possibilites for each branch...
 					moveTypes = [["wiggle", "wiggle"], ["blow"], ["twist"], ["wiggle", "twist"]];
@@ -283,8 +253,9 @@ class Canopy {
 					break;
 				case "mild":  // a mild breeze is default
 				default :    
+					totalLeavesToAnim = 10;
 					// (branch locs equal to quadrants in cartesian sys)
-					branchesToAnim = [0, 1, 3, 2];	
+					branchesToAnim = [1, 2, 4, 3];	
 					branchNumOfLeavesToAnim = [1, 3, 5, 1];
 					//moveTypes has an array of possibilites for each branch...
 					moveTypes = [["wiggle", "wiggle"], ["blow"], ["twist"], ["wiggle", "twist"]];
@@ -295,13 +266,7 @@ class Canopy {
 					console.log("in mild area...");
 					break;			
 			}
-			// set total leaves to animate by summing branch leaves to animate
-			totalLeavesToAnim = (branchNumOfLeavesToAnim.forEach(x => {	let sum = 0; sum += x; }));
-			console.log("setting total leaves to animate to: "+totalLeavesToAnim);
-			if (totalLeavesToAnim > numLeaves) { 
-				this.numLeaves = totalLeavesToAnim;
-				console.log("Warning: your total animation leaves exceeds canopy, increasing canopy!!!");
-			}
+			if (totalLeavesToAnim > numLeaves) { totalLeavesToAnim = numLeaves; }
 			console.log("num of branches:"+branchesToAnim.length+"  ");
 			for (let i=0; i < branchesToAnim.length; i++) {
 				//set array of animation profiles of length branchesToAnim 
@@ -309,13 +274,9 @@ class Canopy {
 					branchToAnim: branchesToAnim[i], branchNumOfLeavesToAnim: branchNumOfLeavesToAnim[i],
 					branchMoveType: moveTypes[i], branchDuration: durations[i], branchDelay: delays[i],
 					branchIter: iters[i], branchTiming: timings[i] });
-
-
 				console.log(animProfilesArr+"<---all profiles");
 				console.log(":"+totalLeavesToAnim + ":"+branchesToAnim[i]+":"+branchNumOfLeavesToAnim[i]+":  "+
 					moveTypes[i]+ "  :" + durations[i]+":"+ delays[i]+":"+ iters[i]+ ":"+ timings[i]+"  ooooooo");
-
-
 			}
 			return animProfilesArr;
 		}
@@ -323,12 +284,7 @@ class Canopy {
 			// move each leaf in branch 
 			while (leafNoArray.length > 0) {
 				// grab first random leaf on this branch to animate
-                console.log("leafnoarray: "+ leafNoArray);
-                console.log("length: "+leafNoArray.length);
-                let pop = leafNoArray.pop();
-				console.log(pop);
-				let leafId = "leaf" + pop;
-                console.log("leafId"+ leafId);
+				let leafId = "leaf" + leafNoArray.pop();
 				// get leaf element 
 				let queryLeafId = `#${leafId}`;
 				let leaf = document.querySelector(queryLeafId);
@@ -346,48 +302,28 @@ class Canopy {
 				leaf.style.animation = `${moveType} ${duration}ms ${iter} ${direction} ${delay}ms ${timing} ${fillMode}`;
 			}
 		}
-
-		//let leavesByBranch = [];
+		const motherLeafArray = [];
 		// To make a breeze:
 		// 			-get animation profiles, which is an array indexed by each branch to animate
 		//		 		each branch & contains animation objects
 		// 			-loop through the branches desired to animate in order...
-		// 			    -get array of random leaf numbers for each branch 
-		//			        (passing in # total canopy leaves, # leaves to animate, branch#, 
-        //                   and list of leaves by branch)
-		const motherLeafArray = [];
-		let copyOfleavesInBranch = [], leavesInThisBranch = [];
-		let index = null;
+		// 			-get array of random leaf numbers for each branch 
+		//				passing in # total canopy leaves, # leaves to animate, and branch number
 		const animProfiles = getAnimProfiles(this.numLeaves);
-		console.log("end canopy arrrrr: "+ this.leavesByBranch);
-		console.log("anim profiles:"+animProfiles);
-		console.log("animationProfiles[0]"+animProfiles[0]);
-
-		animProfiles.forEach((profile, i) => {
-			//	console.log(profile.x);  
-			if (profile.branchNumOfLeavesToAnim != 0) {
-				console.log("end canopy profile index:"+index+" i:"+i+ " : profile:"+profile+"   ");
-				index = profile.branchToAnim;
-				console.log("end canopy numleaves: "+this.numLeaves+ "  branch#leavestoanim: "+ profile.branchNumOfLeavesToAnim+ "branchToanim: "+profile.branchToAnim+"  ");
-				console.log("  branchtoanim:"+profile.branchToAnim);
-
-				console.log("  leavesByBranch "+ this.leavesByBranch[index]);
-				leavesInThisBranch = this.leavesByBranch[index];
-				copyOfleavesInBranch = leavesInThisBranch.slice(0);  //make a copy of leaves in branch to preserve orig
-				motherLeafArray[i] =
-					getLeafNos(profile.branchNumOfLeavesToAnim, profile.branchToAnim, copyOfleavesInBranch);
-				console.log("motherleafarray"+motherLeafArray[i]+ "now starting movebranch!");
-				moveBranch(motherLeafArray[i], profile);
-			}  else { console.log("skipping this branch, number of leaves = 0");}
-		});	
+		for (let i=0; i<animProfiles.length; i++) {
+			console.log("profile"+i+":"+animProfiles[i]+"   ");
+			console.log("numleaves: "+this.numLeaves+ "  branch#leavestoanim: "+ animProfiles[i].branchNumOfLeavesToAnim+ "branchToanim: "+animProfiles[i].branchToAnim+"  ");
+			motherLeafArray[i] =
+				getLeafNos(this.numLeaves, animProfiles[i].branchNumOfLeavesToAnim, animProfiles[i].branchToAnim);
+			moveBranch(motherLeafArray[i], animProfiles[i]);
+		}	
 	}
 }	//end canopy
 
 const canopy1 = new Canopy(30);
-console.log(" canopy is full? "+canopy1.isfull+"  ");
+console.log("canopy is full? "+canopy1.isfull+"  ");
 canopy1.getLeaves();
-console.log(" canopy is full? "+canopy1.isfull+"  ");
-console.log(" done getting leaves, calling breeze");
+console.log("canopy is full? "+canopy1.isfull+"  ");
 canopy1.breeze("mild");
 console.log("wth"+ canopy1);
 
