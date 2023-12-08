@@ -10,7 +10,7 @@
     --sm-pad: 0.5rem;
     --md-pad: 0.9rem;
     --greeny: rgb(29, 210, 23);
-    --trans-black: rgba(0, 0, 0, 0.679);
+
    
     /* colors */
     --orangey:  rgb(196, 140, 79);
@@ -22,6 +22,8 @@
     --bluegray: rgba(159, 173, 175, 0.582);
     --darkgray: rgb(112, 109, 109);
     --commonbrown: rgb(142, 96, 35);
+    --trans-black: rgba(0, 0, 0, 0.679);
+    --lt-trans-black: rgba(53, 53, 53, 0.463);
     
     --svgtreebubble:  polygon(27% 92%, 19% 97%, 16% 91%, 7% 95%, 10% 87%, 3% 87%, 5% 76%, 1% 70%, 4% 59%, 1% 52%, 6% 47%, 4% 41%, 9% 32%, 6% 28%, 9% 19%, 4% 19%, 10% 14%, 3% 10%, 14% 8%, 13% 3%, 26% 7%, 33% 3%, 39% 8%, 46% 1%, 54% 9%, 67% 2%, 73% 6%, 79% 1%, 84% 6%, 88% 1%, 89% 14%, 97% 7%, 94% 19%, 99% 24%, 93% 32%, 99% 38%, 94% 45%, 98% 53%, 93% 61%, 99% 70%, 92% 72%, 99% 76%, 94% 77%, 99% 81%, 92% 86%, 100% 91%, 89% 91%, 96% 98%, 86% 95%, 85% 99%, 80% 92%, 76% 98%, 73% 95%, 69% 99%, 62% 92%, 58% 98%, 53% 91%, 47% 97%, 44% 91%, 34% 98%);
 }
@@ -36,18 +38,33 @@ body {
 }
 
 header {
-    background-color: var(--nice-green);
-    height: 1.3rem;
     grid-row: 1;
     grid-column: 1 / 5;
+    height: 1.3rem;
+    background-color: var(--nice-green);
+    
+
+    /*justify-content: end;
     padding-top: var(--sm-marg);
     padding-right: 10rem;
-    white-space: pre;
-    font-style: italic;
     font-size: .7rem;
-    vertical-align: bottom;
-    text-align: right;
-    
+    vertical-align: bottom;*/
+}
+.topbuttons {
+    list-style-type:none;
+    float: right;
+    height: 1.3rem;
+    margin: 0 5rem 0 0;
+    gap: 5rem;
+}
+
+.topbuttons > li {
+    display: inline-block;
+    text-align: center;
+    object-fit: contain;
+    height: 1.3rem;
+    padding-left: var(--md-pad);
+    padding-right: var(--md-pad);
 }
 
 /* holds photo, contact info, and skills */
@@ -289,6 +306,12 @@ footer span {
 
 /* animation of buttons, etc */
 
+
+.topbuttons > li:hover {
+    background-color: var(--lt-trans-black);
+    color: white;
+}
+
 button:hover,
 #name:hover {
     background-color: var(--lt-nice-green);
@@ -323,9 +346,7 @@ button:hover,
 /* animation keyframes */
 
 @keyframes wiggle {
-    0% { 
-        transform: skew(37deg);
-    }
+
     50% {
         transform: skew(-37deg);
     }
@@ -335,9 +356,7 @@ button:hover,
 }
 
 @keyframes twist {
-    0% { 
-        transform: rotate(37deg);
-    }
+
     50% {
         transform: rotate(-37deg);
     }
@@ -345,15 +364,27 @@ button:hover,
         transform: rotate(-37deg);
     }
 }
-@keyframes blow {
+@keyframes blow-back {
     0% { 
         transform: scale(1,1);
     }
     50% {
-        transform: scale(1.3,1.15);
+        transform: scale(.7,.8);
     }
     100% {
         transform: scale(1, 1);
+    }
+}
+
+@keyframes blow-to-left {
+    0% { 
+        transform: transform(0rem,0rem);
+    }
+    50% {
+        transform: transform(-.6rem,-.1rem);
+    }
+    100% {
+        transform: transform(0rem,0rem);
     }
 }
 
