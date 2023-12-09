@@ -20,7 +20,7 @@ function ballDrop() {
 class Canopy {
 	constructor(numLeaves) {
 		this.numLeaves = numLeaves;
-		this.isfull = false;
+		this.isFull = false;
         this.leavesByBranch = [];
 	}
 	getLeaves() {
@@ -100,10 +100,10 @@ class Canopy {
 			const leaf = document.createElement("div");
 			leaf.setAttribute("id", "leaf" + leafNo);
 			// create new attribute for DOM element: store branch number of leaf
-			const branchAttribute = document.createAttribute("branch");
+			//const branchAttribute = document.createAttribute("branch");
 			//console.log("creating leaf with branch:"+branch+"....");
-			branchAttribute.value = branch;
-			leaf.setAttributeNode(branchAttribute);
+			//branchAttribute.value = branch;
+			//leaf.setAttributeNode(branchAttribute);
 			leaf.style.position = "absolute";
 			leaf.style.width = leafProfile[0];
 			leaf.style.height = leafProfile[1];
@@ -152,7 +152,7 @@ class Canopy {
 
 		// populate tree with leaves and append element to .treebox 
 
-		if (this.isfull) {
+		if (this.isFull) {
 			alert("Tree already has plenty of leaves...");
 		} else {
 			console.log(":end of getleaves:getting leaves now:" + this.numLeaves+"!!!");
@@ -181,14 +181,25 @@ class Canopy {
 			}
 			//tree is full if at least one leaf created in treebox
 			if (this.numLeaves > 1) {
-				this.isfull = true;  
+				this.isFull = true;  
 			} else {
-				this.isfull = false;
+				this.isFull = false;
 			}
 			//store leavesByBranch in canopy object so breeze can use later
 			console.log("end of getleaves by branching: "+ leavesByBranch1 + "     "+  leavesByBranch2 + "     "+ leavesByBranch3 + "     " + leavesByBranch4);
 			this.leavesByBranch.push(leavesByBranch1, leavesByBranch2, leavesByBranch3, leavesByBranch4);
 			console.log("end of getleaves branch array: "+ this.leavesByBranch );
+		}
+	}
+	dropLeaves() {
+		if (!(this.isFull)) {
+			alert("Tree has no leaves to drop...");
+		} else {
+			const myNode = document.getElementById("treebox");
+			while (myNode.firstChild  && myNode.firstChild != myNode.lastChild) {
+			  myNode.removeChild(myNode.lastChild);
+			}
+			this.isFull = false;	
 		}
 	}
 	breeze(type) {
@@ -359,7 +370,7 @@ class Canopy {
 		// 			    -get array of random leaf numbers for each branch 
 		//			        (passing in # total canopy leaves, # leaves to animate, branch#, 
         //                   and list of leaves by branch)
-		if ( !(this.isfull)) {
+		if ( !(this.isFull)) {
 			alert("You need leaves to see a breeze...");
 		} else {
 			const motherLeafArray = [];
@@ -403,6 +414,10 @@ function mildBreeze() {
 	canopy1.breeze("mild");
 }
 
+function dropAllLeaves() {
+	canopy1.dropLeaves();
+}
+
 function spraySparkles() {
 	alert("<great effect here>");
 }
@@ -442,6 +457,7 @@ document.querySelector(".tree").addEventListener("click", spraySparkles);
 document.getElementById("ball").addEventListener("click", ballDrop);
 document.getElementById("getleaves").addEventListener("click", getLeavesOnTree);
 document.getElementById("mildbreeze").addEventListener("click", mildBreeze);
+document.getElementById("dropleaves").addEventListener("click", dropAllLeaves);
 
 
 /* Set event listeners for skills & tooltips:
